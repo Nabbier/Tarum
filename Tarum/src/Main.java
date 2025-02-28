@@ -2,10 +2,6 @@ import com.tarum.app.Application;
 import com.tarum.io.content.ContentManager;
 import com.tarum.io.content.type.Configuration;
 import com.tarum.io.content.type.ContentContainer;
-import com.tarum.io.content.type.ContentMap;
-import com.tarum.io.content.type.ContentMapImpl;
-
-import java.io.File;
 
 public class Main extends Application {
 
@@ -21,31 +17,16 @@ public class Main extends Application {
         Configuration config = getConfiguration();
 
         ContentManager cm = getContentManager();
-
-        ContentMap contentMap = new ContentMapImpl(cm, "Test");
-
-        String testObj = "TestObj";
-        long testKey = contentMap.add(testObj);
-        String testObj2 = "TestObj2";
-        long testKey2 = contentMap.add(testObj2);
-
-        boolean contentExportationResult = cm.exportContentContainer(contentMap);
+        ContentContainer container = cm.createContentContainer("Test_Container");
+        boolean contentExportationResult = cm.exportContentContainer(container);
 
         if (contentExportationResult){
-            log ("Successfully exported content container to the local filesystem (file_path:" + contentMap.getFile().getAbsolutePath()
+            log ("Successfully exported content container to the local filesystem (file_path:" + container.getFile().getAbsolutePath()
         + "!");
         } else {
-            logError("Failed to export content container to the local filesystem (file_path:" + contentMap.getFile().getAbsolutePath()
+            logError("Failed to export content container to the local filesystem (file_path:" + container.getFile().getAbsolutePath()
             + "!");
         }
-
-        File containerFile = contentMap.getFile();
-//        ContentMap loadedContentMap = (ContentMap) cm.loadContentContainerFile(containerFile);
-//
-//        if (loadedContentMap != null){
-//        }
-
-
     }
 
     @Override

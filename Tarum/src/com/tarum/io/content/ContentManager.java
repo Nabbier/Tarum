@@ -3,10 +3,7 @@ package com.tarum.io.content;
 import com.tarum.app.Application;
 import com.tarum.io.content.parser.XMLParser;
 import com.tarum.io.content.type.*;
-import com.tarum.util.FileUtils;
 import com.tarum.util.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import java.io.File;
 import java.util.HashSet;
@@ -113,29 +110,15 @@ public class ContentManager {
     }
 
     public BasicContentContainer loadContentContainerFile (File file){
-        if (file == null || !file.exists()) return null;
 
-        XMLParser parser = new XMLParser (file);
-
-        XMLDocument xmlDocument = parser.loadFile(file);
-        Document document = xmlDocument.getDocument();
-        Element rootElement = document.getDocumentElement();
-        String documentName = rootElement.getNodeName();
-
-        // TODO: **
-        ContentContainerImpl container = new ContentContainerImpl(this, documentName);
-
-        
-
-        return container;
+        return null;
     }
+
     public BasicContentContainer loadContentContainerFile (File file, BasicContentContainer target){
         return null;
     }
 
     public boolean exportContentContainer (BasicContentContainer container){
-        log ("ContentManager.exportContentContainer(BasicContentContainer): Exporting contents from container " +
-                "(name: " + container.getName() + ", file_path: "+ container.getFile().getAbsolutePath() + ")");
         XMLParser parser = new XMLParser(container.getFile());
         XMLDocument document = null;
 

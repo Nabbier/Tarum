@@ -132,8 +132,9 @@ public class XMLParser {
              * TODO: IMPLEMENT A PROCEDURE TO CHECK IF THE OBJECT THE XML DOCUMENT IS BEING PREPARED FOR
              * IS A CONTENT_TYPE FILE SO THAT WE CAN
              */
-//            if (FileUtils.doesPackageContainClass("com.tarum.io.content.type", object.getClass().getSuperclass().getName())){
-//            }
+            if (FileUtils.doesPackageContainClass("com.tarum.io.content.type", object.getClass().getSuperclass().getName())){
+
+            }
         }
 
         document.appendChild(rootElement);
@@ -144,29 +145,13 @@ public class XMLParser {
             return null;
         }
 
-        generateNodeInformation (document, object, object.getClass());
-        if (object.getClass().getSuperclass() != null){
-            generateNodeInformation(document, object, object.getClass().getSuperclass());
-
-            // TODO: CONTINUE TO CHECK FOR SUPERCLASSES IN A LOOP UNTIL ALL OF THEM HAVE HAD THEIR FIELD
-            // INFORMATION TURNED INTO NODE ELEMENTS FOR OUR XML DOCUMENT
-        }
-
-        xmlDocument.setDocument(document);
-        return xmlDocument;
-    }
-
-    private void generateNodeInformation(Document document, Object object, Class targetClass) throws IllegalAccessException {
-        Element rootElement = document.getDocumentElement();
-        Field[] fields = targetClass.getDeclaredFields();
-
         for (Field field : fields) {
             field.setAccessible(true);
             Class fieldType = field.getType();
 
             Element element = document.createElement(field.getName());
-            rootElement.appendChild(element);
             element.setAttribute("Type", fieldType.getName());
+            rootElement.appendChild(element);
 
             if (fieldType.isArray()) {
                 element.setAttribute("FieldType", "Array");
@@ -221,6 +206,7 @@ public class XMLParser {
                 Iterator i = map.entrySet().iterator();
 
                 while (i.hasNext()){
+
                     Map.Entry entry = (Map.Entry) i.next();
                     Object key = entry.getKey();
                     Object value = entry.getValue();
@@ -307,6 +293,8 @@ public class XMLParser {
             }
         }
 
+        xmlDocument.setDocument(document);
+        return xmlDocument;
     }
 
     public Object parseXMLDocumentToObject (Object target){
@@ -324,10 +312,6 @@ public class XMLParser {
     public static boolean loadXMLDocumentFile (XMLDocument target, File xmlDocumentFile){
 
         return true;
-    }
-    public XMLDocument loadFile(){
-        if (getXMLDocument() == null) return null;
-        return loadFile(getXMLDocument().getFile());
     }
     public XMLDocument loadFile (File file){
         if (file == null || !file.exists()) return null;
@@ -350,7 +334,7 @@ public class XMLParser {
     public boolean export (File file){
         return exportXMLDocument(xmlDocument, file);
     }
-    public static boolean exportXMLDocument (XMLDocument xmlDocument, File dest){
+    public boolean exportXMLDocument (XMLDocument xmlDocument, File dest){
         if ((dest == null && xmlDocument == null) || (dest == null && xmlDocument.getFile() == null)) return false;
 
         if (dest != null){

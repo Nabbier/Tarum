@@ -98,7 +98,7 @@ public class XMLDocument extends BasicContentContainer implements Serializable {
         return export(getFile());
     }
     public boolean export (File file){
-        return XMLParser.exportXMLDocument(this, file);
+        return true;
     }
 
 }

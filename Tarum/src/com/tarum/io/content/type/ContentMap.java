@@ -9,8 +9,8 @@ import java.util.HashMap;
 
 public abstract class ContentMap extends ContentContainer implements Serializable {
 
-    private HashMap<Long, Object> dataMap = new HashMap<>();
-    private HashMap<String, Long> keyMap = new HashMap<>();
+    private transient HashMap<Long, Object> dataMap = new HashMap<>();
+    private transient HashMap<String, Long> keyMap = new HashMap<>();
 
     private Class dataType;
 

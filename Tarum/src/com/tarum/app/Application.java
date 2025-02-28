@@ -120,10 +120,6 @@ public abstract class Application implements Runnable{
     public static Configuration getDefaultApplicationConfiguration(){
         File file = new File (System.getenv("APPDATA")+"/." + DEFAULT_APPLICATION_NAME + "/", "application.cfg");
         Configuration config = new Configuration(file);
-
-        config.setDataType(String.class);
-        long fieldKey = config.add("ConfigField1");
-        long fieldKey2 = config.add("ConfigField2");
 //        config.setDataType(String.class);
 
 //        config.set("Test_field", "Test_Value");
